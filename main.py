@@ -8,8 +8,8 @@ def main():
     response = requests.get("https://www.github.com/SoftwrDev")
     soup = BeautifulSoup(response.text, "html.parser")
     g = soup.find_all("g")
-    commits = [{"commits": rect.get("data-count"), "date": rect.get("data-date")} for rect in g[52].find_all("rect")]
-    commits = [*commits, {"commits": rect.get("data-count"), "date": rect.get("data-date")} for rect in g[53].find_all("rect")]    
+    commits = [{"commits": r.get("data-count"), "date": r.get("data-date")} for r in g[52].find_all("rect")]
+    commits = [*commits, {"commits": r.get("data-count"), "date": r.get("data-date")} for r in g[53].find_all("rect")]    
     commits = sort_commits(sort_commits(commits, reverse=True)[0:7])
 
     with open("commits.json", "w") as f:
